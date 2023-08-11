@@ -9,7 +9,6 @@ import apiRouter from './routers'
 
 const app = websockify(new Koa())
 
-// Using routes
 app.ws.use(
   route.all('/ws', (ctx) => {
     ctx.websocket.send('Hello World')
@@ -19,8 +18,9 @@ app.ws.use(
     })
   }),
 )
-export default app
 
-// app.use(bodyParser())
-// app.use(mount('/public', serve('./src/public')))
-// app.use(mount('/api', apiRouter.routes())).use(apiRouter.allowedMethods())
+app.use(bodyParser())
+app.use(mount('/public', serve('./src/public')))
+app.use(mount('/api', apiRouter.routes())).use(apiRouter.allowedMethods())
+
+export default app
