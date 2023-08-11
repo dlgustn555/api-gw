@@ -11,7 +11,7 @@ n2c:
 app:
   image:
     name: dlgustn555/api-gw
-    tag: 1.0.0
+    tag: 0.0.1
   resources:
     request:
       cpu: 100m
