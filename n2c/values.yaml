@@ -23,7 +23,6 @@ app:
 nginx:
   image:
     name: nginx
-    tag: latest
   configPath: /home1/irteam/apps/nginx/conf/custom
   resources:
     request:

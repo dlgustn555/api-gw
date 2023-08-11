@@ -41,7 +41,7 @@ spec:
               memory: {{ .Values.nginx.resources.limits.memory }}
 
         - name: app
-          image: {{ .Values.app.image.name }}:{{ .Values.app.image.tag }}
+          image: {{ .Values.app.image.name }}:{{ .Values.IMAGE_TAG }}
           ports:
             - containerPort: 4000
           env:
