@@ -5,8 +5,6 @@ USER root
 
 WORKDIR /app
 
-RUN npm i -g yarn
-
 COPY package.json yarn.lock ./
 
 
