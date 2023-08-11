@@ -11,7 +11,6 @@ n2c:
 app:
   image:
     name: dlgustn555/api-gw
-    tag: 0.0.1
   resources:
     request:
       cpu: 100m
@@ -23,6 +22,7 @@ app:
 nginx:
   image:
     name: nginx
+    tag: latest
   configPath: /home1/irteam/apps/nginx/conf/custom
   resources:
     request:
