@@ -9,5 +9,5 @@ connectDb()
 app.use(errorHandler)
 
 app.listen(PORT, () => {
-  console.log(`🎉Server is Running ON ${PORT}!!🎈`)
+  console.log(`🎉 Server is Running ON ${PORT}!! 🎈`)
 })

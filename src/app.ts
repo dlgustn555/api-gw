@@ -14,8 +14,8 @@ app.ws.use(
     ctx.websocket.send('🤖👽👻Connect api-gw WebSocket. Welcome!!🥝🦜🍬')
 
     ctx.websocket.on('message', (message) => {
-      console.log('🤪😜 Client Receive Message : ', message)
-      ctx.websocket.send(message)
+      console.log('🤪😜 Client Receive Message : ', message.toString())
+      ctx.websocket.send(message.toString())
     })
   }),
 )
