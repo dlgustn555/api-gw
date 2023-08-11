@@ -1,0 +1,9 @@
+{{- $nccLabels := include "ncc.labels" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-{{ .Values.n2c.instance }}-{{ .Values.n2c.installation }}
+  labels:
+    {{- $nccLabels | nindent 4 }}  
+data:
+{{ (.Files.Glob "configs/nginx.conf").AsConfig | indent 2 }}

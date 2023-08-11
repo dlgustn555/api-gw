@@ -1,0 +1,38 @@
+replicas:
+  min: 1
+  max: 10
+
+n2c:
+  application: api-gw
+  instance: instance
+  version: version
+  installation: installation
+
+app:
+  image:
+    name: reg.navercorp.com/leehyunsu85/api-gw
+    tag: latest
+  resources:
+    request:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
+
+nginx:
+  image:
+    name: reg.navercorp.com/base/centos7/nginx
+    tag: 1.20.2
+  configPath: /home1/irteam/apps/nginx/conf/custom
+  resources:
+    request:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
+
+hpa:
+  averageCpu: 80m
+  averageMemory: 409Mi

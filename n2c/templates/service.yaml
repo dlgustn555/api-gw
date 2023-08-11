@@ -1,0 +1,17 @@
+{{- $nccLabels := include "ncc.labels" . -}}
+{{- $nccSelectors := include "ncc.selectors" . -}}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-{{ .Values.n2c.instance }}-{{ .Values.n2c.installation }}
+  labels:
+    ncc.navercorp.com/instance-service: {{ .Values.n2c.instance }}
+    {{- $nccLabels | nindent 4 }}
+spec:
+  type: LoadBalancer
+  selector:
+    {{- $nccSelectors | nindent 4 }}
+  ports:
+    - port: 80
+      targetPort: 80

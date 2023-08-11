@@ -1,0 +1,60 @@
+{{- $nccLabels := include "ncc.labels" . -}}
+{{- $nccSelectors := include "ncc.selectors" . -}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.n2c.instance }}-{{ .Values.n2c.installation }}
+  labels:
+    {{- $nccLabels | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas.min }}
+  selector:
+    matchLabels:
+      {{- $nccSelectors | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        ncc.navercorp.com/l4-weights: {{ .Values.n2c.installation }}
+      labels:
+        {{- $nccLabels | nindent 8 }}
+    spec:
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: config-{{ .Values.n2c.instance }}-{{ .Values.n2c.installation }}
+      containers:
+        - name: nginx
+          image: {{ .Values.nginx.image.name }}:{{ .Values.nginx.image.tag }}
+          command: ["nginx", "-c", "{{ .Values.nginx.configPath }}/nginx.conf", "-g", "daemon off;"]
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: {{ .Values.nginx.configPath }}
+          resources:
+            request:
+              cpu: {{ .Values.nginx.resources.request.cpu }}
+              memory: {{ .Values.nginx.resources.request.memory }}
+            limits:
+              cpu: {{ .Values.nginx.resources.limits.cpu }}
+              memory: {{ .Values.nginx.resources.limits.memory }}
+
+        - name: app
+          image: {{ .Values.app.image.name }}:{{ .Values.app.image.tag }}
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PORT
+              value: "{{ .Values.PORT }}"
+            - name: DB_IP
+              value: "{{ .Values.DB_IP }}"
+            - name: DB_PORT
+              value: "{{ .Values.DB_PORT }}"
+          resources:
+            request:
+              cpu: {{ .Values.app.resources.request.cpu }}
+              memory: {{ .Values.app.resources.request.memory }}
+            limits:
+              cpu: {{ .Values.app.resources.limits.cpu }}
+              memory: {{ .Values.app.resources.limits.memory }}
