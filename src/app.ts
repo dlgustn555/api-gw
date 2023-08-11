@@ -11,9 +11,10 @@ const app = websockify(new Koa())
 
 app.ws.use(
   route.all('/ws', (ctx) => {
-    ctx.websocket.send('Hello World')
+    ctx.websocket.send('🤖👽👻Connect api-gw WebSocket. Welcome!!🥝🦜🍬')
 
     ctx.websocket.on('message', (message) => {
+      console.log('🤪😜 Client Receive Message : ', message)
       ctx.websocket.send(message)
     })
   }),
