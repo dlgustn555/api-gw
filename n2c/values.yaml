@@ -33,6 +33,9 @@ nginx:
       cpu: 100m
       memory: 512Mi
 
+PORT: 4000
+DB_IP: 10.174.79.140
+DB_PORT: 27017
 hpa:
   averageCpu: 80m
   averageMemory: 409Mi
