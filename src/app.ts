@@ -13,9 +13,18 @@ app.ws.use(
   route.all('/ws', (ctx) => {
     ctx.websocket.send('🤖👽👻Connect api-gw WebSocket. Welcome!!🥝🦜🍬')
 
-    ctx.websocket.on('message', (message) => {
-      console.log('🤪😜 Client Receive Message : ', message.toString())
-      ctx.websocket.send(message.toString())
+    ctx.websocket.on('message', (data) => {
+      const { server } = app.ws
+
+      if (typeof data.toString() !== 'string' || !server) {
+        return
+      }
+
+      const { message } = JSON.parse(data.toString())
+
+      server.clients.forEach((client) => {
+        client.send(message)
+      })
     })
   }),
 )
