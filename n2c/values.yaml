@@ -4,14 +4,14 @@ replicas:
 
 n2c:
   application: api-gw
-  instance: instance
-  version: version
+  instance: api-gw
   installation: installation
+  version: version
 
 app:
   image:
-    name: reg.navercorp.com/leehyunsu85/api-gw
-    tag: latest
+    name: dlgustn555/api-gw
+    tag: 1.0.0
   resources:
     request:
       cpu: 100m
@@ -22,8 +22,8 @@ app:
 
 nginx:
   image:
-    name: reg.navercorp.com/base/centos7/nginx
-    tag: 1.20.2
+    name: nginx
+    tag: latest
   configPath: /home1/irteam/apps/nginx/conf/custom
   resources:
     request:
