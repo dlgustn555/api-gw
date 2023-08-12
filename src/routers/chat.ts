@@ -15,11 +15,16 @@ const chatRoutes = (app) =>
       if (typeof data.toString() !== 'string' || !server) {
         return
       }
+
       const {
         type,
         payload: [{ nickname, message }],
       } = JSON.parse(data.toString())
 
+      if (type !== 'intro') {
+        const newChat = new ChatModel({ type, nickname, message })
+        newChat.save()
+      }
       const newChat = new ChatModel({ type, nickname, message })
       newChat.save()
 
