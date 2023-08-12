@@ -20,10 +20,8 @@ app.ws.use(
         return
       }
 
-      const { message } = JSON.parse(data.toString())
-
       server.clients.forEach((client) => {
-        client.send(message)
+        client.send(data.toString())
       })
     })
   }),
